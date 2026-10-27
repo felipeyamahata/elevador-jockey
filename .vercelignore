@@ -1,0 +1,6 @@
+.git/
+preview/
+*.md
+.env
+.env.*
+node_modules/

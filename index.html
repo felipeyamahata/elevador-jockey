@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3f1eb">
+  <meta name="description" content="Explore a experiência de um elevador cenográfico: entre, desça ao -7 e descubra o subsolo.">
+  <title>O Subsolo — Experiência Jockey</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg class="svg-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5Z M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-muted" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5ZM16 9l6 6m0-6-6 6"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></symbol>
+    <symbol id="i-door" viewBox="0 0 24 24"><path d="M4 21V3h15v18M2 21h20M15 12h.01M8 3v18"/></symbol>
+    <symbol id="i-cabin" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M7 7h10M12 11v7m-3-3 3 3 3-3"/></symbol>
+    <symbol id="i-exit" viewBox="0 0 24 24"><path d="M9 4H4v16h5m3-8h10m-4-4 4 4-4 4"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v18M5 14l7 7 7-7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><path d="M7 21v-6a5 5 0 0 1 10 0v6m-5-8v8"/></symbol>
+  </defs></svg>
+  <a class="skip-link" href="#main">Ir para a experiência</a>
+  <div class="app-shell">
+    <header class="topbar">
+      <h1>O Subsolo<span class="title-dot">.</span></h1>
+      <div class="toolbar">
+        <button class="about-button" id="btnAbout" aria-haspopup="dialog" aria-controls="aboutDialog">Sobre</button>
+        <button class="presentation-button" id="btnAutoDemo" aria-label="Apresentar experiência" title="Apresentar experiência" aria-pressed="false"><svg class="icon"><use id="demoIcon" href="#i-play"/></svg></button>
+        <button class="icon-button" id="btnAudioToggle" aria-label="Desativar som" title="Desativar som" aria-pressed="true"><svg class="icon"><use id="soundIcon" href="#i-sound"/></svg></button>
+        <button class="icon-button" id="btnMasterReset" aria-label="Reiniciar experiência" title="Reiniciar experiência"><svg class="icon"><use href="#i-reset"/></svg></button>
+      </div>
+    </header>
+
+    <div class="experience-heading">
+      <div class="journey" aria-label="Etapas da experiência"><span class="journey-step current">Entrada</span><span class="journey-line"></span><span class="journey-step">Descida</span><span class="journey-line"></span><span class="journey-step">Saída</span></div>
+    </div>
+    <div class="session-status"><span class="status-dot"></span><span id="globalStatus" role="status">Entrada disponível</span><span class="simulation-label">Simulação interativa</span></div>
+    <p id="demoStatus" class="demo-status" role="status" hidden></p>
+
+    <section class="map-section" id="cabinMap" aria-labelledby="mapHeading">
+      <div class="map-heading"><span id="mapHeading">Visão da cabine</span><span class="map-summary-status" id="mapStatus" role="status">Aguardando entrada</span></div>
+      <div class="floorplan" aria-label="Cabine vista de cima, com entrada à esquerda e saída à direita">
+        <span class="zone-name entry-zone">Entrada</span>
+        <span class="zone-name exit-zone">Evento</span>
+        <div class="cabin-plan"><span class="plan-label">Cabine</span><span class="plan-screen" id="mapFloor">0</span><span class="plan-panel"></span></div>
+        <button class="plan-door plan-door-entry open" id="mapDoor1" aria-label="Fechar porta de entrada"><span></span></button>
+        <button class="plan-door plan-door-exit" id="mapDoor2" aria-label="Abrir porta de saída" disabled><span></span></button>
+        <div class="map-visitor" id="mapVisitor" data-position="entry"><svg class="icon"><use href="#i-person"/></svg><span class="sr-only">Visitante</span></div>
+        <span class="plan-door-label entry-door-label">Porta 1</span><span class="plan-door-label exit-door-label">Porta 2</span>
+      </div>
+    </section>
+
+    <main class="environments" id="main">
+      <section class="environment entrance is-active" id="entrada" aria-labelledby="entranceHeading">
+        <header class="environment-header"><h2 id="entranceHeading">Entrada</h2><span>Visor externo</span></header>
+        <div class="entrance-content">
+          <div class="entrance-sign">
+            <div class="sign-top"><span>Elevador · Entrada</span><svg class="icon"><use href="#i-exit"/></svg></div>
+            <div class="entrance-floor-row"><span class="sr-only" id="outsideFloorText">Andar 0</span><svg class="digital-floor" id="outsideDigits" viewBox="0 0 138 118" aria-hidden="true"><path class="digit-minus" d="M5 52h28l7 7-7 7H5l-5-7Z"/><g transform="translate(50 0)"><polygon data-segment="a" points="15,4 65,4 72,11 64,18 16,18 8,11"/><polygon data-segment="b" points="74,14 81,21 81,49 74,56 67,49 67,22"/><polygon data-segment="c" points="74,61 81,68 81,96 74,103 67,95 67,69"/><polygon data-segment="d" points="16,100 64,100 72,107 65,114 15,114 8,107"/><polygon data-segment="e" points="6,61 13,69 13,95 6,103 0,96 0,68"/><polygon data-segment="f" points="6,14 13,22 13,49 6,56 0,49 0,21"/><polygon data-segment="g" points="16,52 64,52 71,59 64,66 16,66 9,59"/></g></svg><svg class="icon outside-arrow" aria-hidden="true"><use href="#i-down"/></svg></div><div class="sign-message" aria-live="polite"><span class="sign-indicator"></span><h3 id="outsideHeadline">Livre</h3><p id="outsideSub">Sua experiência começa aqui.</p></div>
+            <div class="sign-bottom"><span>O Subsolo</span><span id="entranceStatus">Disponível</span></div>
+          </div>
+          <div class="entrance-action"><div class="door-status"><span>Porta de entrada</span><span id="door1Status">Aberta</span></div><button class="button button-outline" id="btnToggleDoor1"><svg class="icon"><use href="#i-door"/></svg><span id="btnDoor1Text">Fechar porta de entrada</span></button><a class="next-environment" href="#cabine" data-environment-link="cabine">Ver painel da cabine <span aria-hidden="true">→</span></a></div>
+        </div>
+      </section>
+
+      <section class="environment cabin" id="cabine" aria-labelledby="cabinHeading">
+        <header class="environment-header"><h2 id="cabinHeading">Cabine</h2><span>Painel do visitante</span></header>
+        <div class="elevator-panel">
+          <div class="panel-top"><span>O Subsolo</span><span>JCRJ</span></div>
+          <div class="floor-display"><div class="display-meta"><span id="cabinStatus">Térreo</span><svg class="icon direction-arrow" id="directionArrow" aria-hidden="true"><use href="#i-down"/></svg></div><div class="floor-number"><span class="sr-only" id="floorNumber">0</span><svg class="digital-floor" id="cabinDigits" viewBox="0 0 138 118" aria-hidden="true"><path class="digit-minus" d="M5 52h28l7 7-7 7H5l-5-7Z"/><g transform="translate(50 0)"><polygon data-segment="a" points="15,4 65,4 72,11 64,18 16,18 8,11"/><polygon data-segment="b" points="74,14 81,21 81,49 74,56 67,49 67,22"/><polygon data-segment="c" points="74,61 81,68 81,96 74,103 67,95 67,69"/><polygon data-segment="d" points="16,100 64,100 72,107 65,114 15,114 8,107"/><polygon data-segment="e" points="6,61 13,69 13,95 6,103 0,96 0,68"/><polygon data-segment="f" points="6,14 13,22 13,49 6,56 0,49 0,21"/><polygon data-segment="g" points="16,52 64,52 71,59 64,66 16,66 9,59"/></g></svg></div><div class="travel-track" id="journeyProgress"><span></span></div><div class="floor-stops" aria-hidden="true"><span data-floor="0">0</span><span data-floor="-1">-1</span><span data-floor="-2">-2</span><span data-floor="-3">-3</span><span data-floor="-4">-4</span><span data-floor="-5">-5</span><span data-floor="-6">-6</span><span data-floor="-7">-7</span></div><p id="cabinMessage" role="status">Feche a porta para começar</p><p class="arrival-note" id="arrivalNote"></p></div>
+          <div class="destination"><button class="floor-button" id="btnFloorMinus7" aria-label="Descer ao subsolo, andar menos sete" disabled><span>-7</span></button><span class="destination-label">Subsolo</span></div>
+          <div class="panel-bottom"><span>Jockey Club</span><span>Rio de Janeiro</span></div>
+        </div>
+      </section>
+
+      <section class="environment operations" id="operacao" aria-labelledby="operatorHeading">
+        <header class="environment-header"><h2 id="operatorHeading">Operação</h2><span>Controle de saída</span></header>
+        <div class="operator-content">
+          <div class="operator-notice" aria-live="polite"><div class="operator-symbol"><svg class="icon"><use id="operatorSignal" href="#i-door"/></svg></div><h3 id="operatorTitle">Aguardando visitante</h3><p id="operatorDescription">A saída será liberada ao chegar ao -7.</p></div>
+          <dl class="operator-readings"><div><dt>Andar atual</dt><dd id="staffFloor">0</dd></div><div><dt>Porta de saída</dt><dd id="door2Status">Fechada</dd></div></dl>
+          <div class="operator-actions"><button class="button button-primary" id="btnStaffAction" disabled>Aguardando chegada</button><button class="button button-primary" id="btnStaffReset" hidden>Preparar próxima visita</button></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="about-dialog" id="aboutDialog" aria-labelledby="aboutTitle">
+      <div class="about-dialog-header"><h2 id="aboutTitle">Sobre a instalação</h2><form method="dialog"><button class="about-button" autofocus>Fechar</button></form></div>
+<div class="about-content"><p>Uma cabine cenográfica simula a descida do térreo ao -7. O visitante entra por uma porta e sai pela porta oposta, aberta por um funcionário ao receber o sinal de chegada.</p><p>Nesta apresentação, sensores, portas e comunicação entre as telas são simulados no navegador.</p><div class="sensor-detail"><h3>Sensor da entrada</h3><p id="sensorState">Porta aberta · contato aberto</p><p>Na instalação, um sensor magnético Reed Switch detecta o fechamento da porta para liberar o painel.</p></div><details class="event-history"><summary>Histórico da simulação<svg class="icon"><use href="#i-chevron"/></svg></summary><ol id="staffEventLog"><li>Sistema pronto.</li></ol></details></div>
+    </dialog>
+  </div>
+  <nav class="bottom-nav" aria-label="Ambientes da simulação"><button class="nav-tab active" data-tab="entrada" aria-controls="entrada" aria-current="page"><svg class="icon"><use href="#i-door"/></svg><span>Entrada</span></button><button class="nav-tab" data-tab="cabine" aria-controls="cabine"><svg class="icon"><use href="#i-cabin"/></svg><span>Cabine</span></button><button class="nav-tab" id="navOperacao" data-tab="operacao" aria-controls="operacao"><span class="nav-icon-wrap"><svg class="icon"><use href="#i-exit"/></svg><span class="attention-dot"></span></span><span>Operação</span></button></nav>
+  <script src="app.js"></script>
+</body>
+</html>
