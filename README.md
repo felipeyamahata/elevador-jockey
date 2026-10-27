@@ -2,6 +2,13 @@
 
 Simulação interativa de uma instalação cenográfica para um evento no Jockey Club do Rio de Janeiro. A cabine permanece no mesmo lugar: o painel e o áudio criam a ilusão de uma descida do térreo ao -7.
 
+## Acesso público
+
+- Site: https://felipeyamahata.github.io/elevador-jockey/
+- Código: https://github.com/felipeyamahata/elevador-jockey
+
+Hospedado gratuitamente no GitHub Pages, com HTTPS. Alterações enviadas à branch `main` são publicadas automaticamente. A configuração de publicação usa a raiz do repositório, sem etapa de build ou dependências externas.
+
 ## Executar
 
 Abra `index.html` em um navegador moderno. Não há dependências externas nem necessidade de internet.
